@@ -9,7 +9,7 @@ $("#record-btn").on("click", () => {
     startRecording();
 });
 $("#pause-btn").on("click", () => {
-    stopRecording()
+    pauseRecording()
 });
 $("#stop-btn").on("click", () => {
     stopRecording()
@@ -27,6 +27,9 @@ function startRecording() {
             mediaRecorder.start();
 
             $("#record-status").text("recording");
+            $('#record-status').css("color", "blue");
+            $("#record-btn").prop('disabled', true);
+            $("#pause-btn").prop('disabled', false);
             $("#stop-btn").prop('disabled', false);
             console.log(mediaRecorder.state);
 
@@ -35,10 +38,30 @@ function startRecording() {
     });
 }
 
+function pauseRecording() {
+    if (mediaRecorder.state === "recording") {
+        mediaRecorder.pause();
+        $('#record-status').css("color", "gray");
+        $("#record-status").text("pause");
+        $('#pause-btn').text("resume");
+    } else if (mediaRecorder.state === "paused") {
+        mediaRecorder.resume();
+        $('#record-status').css("color", "blue");
+        $("#record-status").text("recording");
+        $('#pause-btn').text("pause");
+    }
+
+    console.log(mediaRecorder.state);
+}
+
 function stopRecording() {
     mediaRecorder.stop();
     console.log(mediaRecorder.state);
     $("#record-status").text("stop");
+    $("#record-status").css("color", "red");
+    $("#record-btn").prop('disabled', false);
+    $("#stop-btn").prop('disabled', true);
+    $("#pause-btn").prop('disabled', true);
 }
 
 function setMediaRecorder() {
@@ -54,6 +77,5 @@ function setMediaRecorder() {
         // var audioURL = window.URL.createObjectURL(e.data);
         console.log(audioURL);
         $("audio").attr("src", audioURL);
-        $("#stop-btn").prop('disable', true);
     }
 }

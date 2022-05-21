@@ -1,0 +1,30 @@
+.record {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.controls {
+    margin: 10px;
+}
+
+.btn {
+    margin: 10px;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.record-label {
+    font-weight: bold;
+}
+
+#record-status {
+    color: red;
+}
+
+.control-btn {
+    width: 100px;
+    height: 50px;
+}
